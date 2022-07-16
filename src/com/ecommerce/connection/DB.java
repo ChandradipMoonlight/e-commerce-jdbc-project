@@ -1,4 +1,4 @@
-package com.connection;
+package com.ecommerce.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,8 +11,10 @@ public class DB {
 	private static final String password ="nextdefault";
 	public static Connection connectDb() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(ulr, user, password);
+			if(connection==null) {
+				Class.forName("com.mysql.jdbc.Driver");
+				connection = DriverManager.getConnection(ulr, user, password);
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
