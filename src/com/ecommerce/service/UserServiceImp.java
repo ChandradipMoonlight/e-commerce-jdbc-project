@@ -20,8 +20,6 @@ public class UserServiceImp implements UserService {
 		this.con = con;
 	}
 	
-	public UserServiceImp() {}
-	
 	public ResultSet findUserByEmail(String email) {
 		PreparedStatement findUserByEmail = null;
 		ResultSet set = null;
@@ -76,6 +74,7 @@ public class UserServiceImp implements UserService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(MessageProperties.LOGIN_SUCCESSFUL.getMessage());
 		return token;
 	}
 	

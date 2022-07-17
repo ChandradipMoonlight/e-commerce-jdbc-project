@@ -72,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
 				product = new Product();
+				product.setId(rs.getInt(1));
 				product.setProductName(rs.getString(2));
 				product.setProductDecription(rs.getString(3));
 				product.setProductPrice(rs.getInt(4));
