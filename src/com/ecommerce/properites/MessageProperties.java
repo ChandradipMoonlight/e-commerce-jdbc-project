@@ -9,6 +9,10 @@ public enum MessageProperties {
 	PRODUCT_NOT_FOUND("Product not found."),
 	CART_NOT_FOUND("cart not found"),
 	SELECT_PRODUCT("Please Select at least one Product to place order"),
+	PRODUCT_ADDED_SUCCESSFULLY("Product Added Successfully."),
+	ORDER_PLACED("Your Order is placed Successfully!"),
+	CART_DETAILS("Your cart Details"),
+	
 	USER_ALREADY_EXIST("User Already Exist.");
 	
 	private String message;

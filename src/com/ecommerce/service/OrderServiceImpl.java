@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +26,13 @@ public class OrderServiceImpl implements OrderService {
 		UserServiceImp userService = new UserServiceImp(con);
 		ProductServiceImpl productService = new ProductServiceImpl(con);
 		CartServiceIml cartService = new CartServiceIml(con);
+		ResultSet getProduct =null;
 		int orderPlaced = 0;
 		PreparedStatement st = null;
 		String query = "Insert into order_detail(product_qty, order_price, user_id, product_id) values(?,?,?,?)";
 		try {
 			ResultSet getUser = userService.findUserByEmail(token);
-			ResultSet getProduct = productService.findProductById(order.getProductId());
+			getProduct = productService.findProductById(order.getProductId());
 			ResultSet getCart = cartService.findCartByProductId(order.getProductId());
 			boolean isUserPresent = getUser.next();
 			if (!isUserPresent) {
@@ -53,6 +55,19 @@ public class OrderServiceImpl implements OrderService {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+		}
+		if(orderPlaced==1) {
+			try {
+				PreparedStatement stat = con.prepareStatement("select * from order_detail order by order_id desc limit 1");
+				ResultSet set = stat.executeQuery();
+				System.out.println("____________________________________________________________________________________________________");
+				System.out.println("OrderId: ProductQty: OrderPrice: Product name");
+				while (set.next()) {
+					System.out.println(set.getInt(1)+"     : " +set.getInt(2)+"     :  " + set.getInt(3)+"  : "+getProduct.getString(2));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return orderPlaced;
 	}
