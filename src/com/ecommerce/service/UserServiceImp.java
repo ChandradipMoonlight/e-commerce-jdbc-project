@@ -20,11 +20,13 @@ public class UserServiceImp implements UserService {
 		this.con = con;
 	}
 	
+	public UserServiceImp() {}
+	
 	public ResultSet findUserByEmail(String email) {
 		PreparedStatement findUserByEmail = null;
 		ResultSet set = null;
 		try {
-			 findUserByEmail = con.prepareStatement("select user_password, user_email, is_admin from user where user_email=?");
+			 findUserByEmail = con.prepareStatement("select user_password, user_email, is_admin, user_id from user where user_email=?");
 			findUserByEmail.setString(1, email);
 			set = findUserByEmail.executeQuery();
 		} catch (SQLException e) {
@@ -72,7 +74,6 @@ public class UserServiceImp implements UserService {
 			}
 			token = userByEmail.getString(2);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return token;
