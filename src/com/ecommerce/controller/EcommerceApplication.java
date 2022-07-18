@@ -60,7 +60,9 @@ public class EcommerceApplication {
 					AppUtils.AllUser(token);
 					break;
 				case 2:
-					System.out.println("Please Select Id of User to check Order History: ");
+					System.out.println("******************************Users Details******************************");
+					AppUtils.AllUser(token);
+					System.out.println("Please Select Id of User from above to check Order History: ");
 					int id = sc.nextInt();
 					AppUtils.orderHistoryOfUser(token, id);
 					break;
@@ -90,11 +92,10 @@ public class EcommerceApplication {
 					int updateStockOfProduct = productService.updataStockOfProudct(token, productId, productQty);
 					if (updateStockOfProduct == 1) {
 						System.out.println(MessageProperties.UPDATED_PRODUCT_STOCK.getMessage());
-						System.out.println("***************************Prodct Details After Stock Updated***********************");
-						AppUtils.allProducts();
 					} else {
 						System.out.println(MessageProperties.INTERNAL_ERROER.getMessage());
 					}
+					break;
 				case 5:
 					AppUtils.operation(token, sc);
 					break;
