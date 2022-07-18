@@ -51,8 +51,6 @@ public class UserServiceImp implements UserService {
 			statemet.setString(3, user.getUserEmail());
 			statemet.setString(4, user.getUserPassword());
 			isUserRegistred = statemet.execute();
-			statemet.close();
-			con.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -92,13 +90,14 @@ public class UserServiceImp implements UserService {
 				throw new EcommerceException(MessageProperties.GET_PERMISSION.getMessage(),
 						EcommerceException.ExceptionType.UNAUTHORISED_USER );
 			}
-			PreparedStatement state = con.prepareStatement("select user_name, user_email, is_admin from user");
+			PreparedStatement state = con.prepareStatement("select * from user");
 			ResultSet rs = state.executeQuery();
 			while(rs.next()) {
 				user = new User();
-				user.setUserName(rs.getString(1));
-				user.setUserEmail(rs.getString(2));
-				user.setAdmin(rs.getBoolean(3));
+				user.setUserId(rs.getInt(1));
+				user.setAdmin(rs.getBoolean(2));
+				user.setUserName(rs.getString(3));
+				user.setUserEmail(rs.getString(4));
 				userList.add(user);
 			}
 		} catch (SQLException e) {
