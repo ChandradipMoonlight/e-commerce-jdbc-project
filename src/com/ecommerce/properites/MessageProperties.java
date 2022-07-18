@@ -12,7 +12,8 @@ public enum MessageProperties {
 	PRODUCT_ADDED_SUCCESSFULLY("Product Added Successfully."),
 	ORDER_PLACED("Your Order is placed Successfully!"),
 	CART_DETAILS("Your cart Details"),
-	VISITE_AGAIN("Thanks! \nVisit Again!"),
+	VISITE_AGAIN("🙏 Thanks! \nVisit Again!"),
+	UPDATED_PRODUCT_STOCK("Product Stock updated Successfully!"),
 	
 	USER_ALREADY_EXIST("User Already Exist.");
 	

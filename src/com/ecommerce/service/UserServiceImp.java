@@ -106,5 +106,29 @@ public class UserServiceImp implements UserService {
 		}
 		return userList;
 	}
+
+	@Override
+	public int makeUserAsAdmin(String token, int userId) {
+		int excute =0;
+		PreparedStatement stat = null;
+		ResultSet user = findUserByEmail(token);
+		String query="update user set is_admin=? where user_id=?";
+		try {
+			if(!user.next()) {
+				throw new EcommerceException(MessageProperties.PLEASE_LOGIN.getMessage());
+			}
+			boolean isAdmin = user.getBoolean(3);
+			if(!isAdmin) {
+				throw new EcommerceException(MessageProperties.GET_PERMISSION.getMessage());
+			}
+			stat = con.prepareStatement(query);
+			stat.setBoolean(1, true);
+			stat.setInt(2, userId);
+			excute = stat.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return excute;
+	}
 	
 }

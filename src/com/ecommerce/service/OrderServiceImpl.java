@@ -59,8 +59,8 @@ public class OrderServiceImpl implements OrderService {
 		}
 		if (orderPlaced == 1) {
 			cartService.decreaseQtyInCart(token, cartByUserIdAndProdutId, order);
-			System.out.println(MessageProperties.ORDER_PLACED.getMessage());
-			System.out.println("Your order details are as follows !");
+			System.out.println("💥 Congratulation 🎉"+MessageProperties.ORDER_PLACED.getMessage()+" 👏  🎉💥");
+			System.out.println("********************Your order details are as follows !*****************************");
 			try {
 				PreparedStatement stat = con
 						.prepareStatement("select * from order_detail order by order_id desc limit 1");
