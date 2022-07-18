@@ -111,7 +111,6 @@ public class OrderServiceImpl implements OrderService {
 			while (getOrders.next()) {
 				order = new OrderModel();
 				order.setOrderId((getOrders.getInt(1)));
-				;
 				order.setProductOty(getOrders.getInt(2));
 				order.setOrderPrice((getOrders.getInt(3)));
 
