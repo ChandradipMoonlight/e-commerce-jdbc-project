@@ -13,4 +13,6 @@ public interface UserService {
 
 	public List<User> getAllUsers(String token);
 
+	public int makeUserAsAdmin(String token, int userId);
+
 }

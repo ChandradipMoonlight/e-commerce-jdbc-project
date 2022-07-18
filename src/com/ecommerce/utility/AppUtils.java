@@ -26,7 +26,7 @@ public class AppUtils {
 		List<Product> getProductList = prouctService.fetchAllProduct();
 		System.out.println(
 				"________________________________________________________________________________________________________________________");
-		System.out.println("productId Product Name  Product Description   ");
+		System.out.println("productId : Product Name   Product Description    Proudct price ");
 		getProductList.forEach(it -> {
 			System.out.println(
 					"-------------------------------------------------------------------------------------------------------------");
@@ -56,6 +56,7 @@ public class AppUtils {
 	public static void operation(String token, Scanner sc) {
 		CartService cartService = new CartServiceIml(DB.connectDb());
 		OrderService orderService = new OrderServiceImpl(DB.connectDb());
+		System.out.println("***************************************Proudct Details**************************************");
 		AppUtils.allProducts();
 		System.out.println("To Add Product in Cart, Please Select Product Id");
 		int id = sc.nextInt();
@@ -66,6 +67,7 @@ public class AppUtils {
 		cart.setProductQty(oty);
 		int addToCart = cartService.addToCart(token, cart);
 		if (addToCart == 1) {
+			System.out.println("*********************************Your Cart Detils****************************************");
 			AppUtils.getCartDetailsOfUser(token);
 			Order order = new Order();
 			System.out.println("To Place Order please Select Id of Product");
@@ -76,7 +78,7 @@ public class AppUtils {
 			order.setProductOty(qty);
 			int placeOrder = orderService.placeOrder(token, order);
 			if (placeOrder == 1) {
-
+				System.out.println("************************Your Cart Datails After Order is placed**********************");
 				AppUtils.getCartDetailsOfUser(token);
 			} else {
 				System.out.println(MessageProperties.INTERNAL_ERROER.getMessage());

@@ -85,4 +85,35 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return productList;
 	}
+
+	@Override
+	public int updataStockOfProudct(String token, int productId, int productQty) {
+		UserServiceImp userService = new UserServiceImp(con);
+		ProductServiceImpl productService = new ProductServiceImpl(con);
+		int updatedStock =0;
+		PreparedStatement stat = null;
+		ResultSet product = null;
+		ResultSet user = userService.findUserByEmail(token);
+		String query="update product set product_qty=? where product_id=?";
+		try {
+			if(!user.next()) {
+				throw new EcommerceException(MessageProperties.PLEASE_LOGIN.getMessage());
+			}
+			boolean isAdmin = user.getBoolean(3);
+			if(!isAdmin) {
+				throw new EcommerceException(MessageProperties.GET_PERMISSION.getMessage());
+			}
+			product = productService.findProductById(productId);
+			if(!product.next()) {
+				throw new EcommerceException(MessageProperties.PRODUCT_NOT_FOUND.getMessage());
+			}
+			stat = con.prepareStatement(query);
+			stat.setInt(1, productQty);
+			stat.setInt(2, productId);
+			updatedStock=stat.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return updatedStock;
+	}
 }
